@@ -19,7 +19,10 @@ const Canvas = (props: CanvasProps) => {
       return;
     }
 
-    const render = () => {
+    const render = (time?: DOMHighResTimeStamp) => {
+      if (time != null) {
+        // console.log(time);
+      }
       frameCount++;
       draw(context, frameCount);
       animationFrameId = window.requestAnimationFrame(render);
