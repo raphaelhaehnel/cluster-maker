@@ -2,8 +2,7 @@ import React, { useRef, useEffect } from "react";
 import CanvasProps from "./interfaces/canvasProps";
 
 const Canvas = (props: CanvasProps) => {
-  const { draw, ...rest } = props;
-
+  const { draw, resize, ...rest } = props;
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -12,8 +11,11 @@ const Canvas = (props: CanvasProps) => {
     let frameCount = 0;
     let animationFrameId: number;
 
+    resize(canvas!);
+    canvas!.style.border = "1px solid #000";
+
     if (context == null) {
-      console.log("error");
+      console.error("context is null");
       return;
     }
 
@@ -29,7 +31,7 @@ const Canvas = (props: CanvasProps) => {
     };
   }, [draw]);
 
-  return <canvas ref={canvasRef} {...props} />;
+  return <canvas ref={canvasRef} />; // Removed {...props}
 };
 
 export default Canvas;

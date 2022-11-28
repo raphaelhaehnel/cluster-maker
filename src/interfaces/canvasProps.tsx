@@ -3,4 +3,5 @@ export default interface CanvasProps {
   //   age: number;
   //   country: string;
   draw(ctx: CanvasRenderingContext2D, frameCount: number): void;
+  resize(canvas: HTMLCanvasElement): void;
 }
