@@ -1,8 +1,9 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import CanvasProps from "./interfaces/canvasProps";
+import Particle from "./physics/particle";
 
 const Canvas = (props: CanvasProps) => {
-  const { draw, resize, ...rest } = props;
+  const { resize, draw, ...rest } = props;
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -10,6 +11,16 @@ const Canvas = (props: CanvasProps) => {
     const context = canvas!.getContext("2d");
     let frameCount = 0;
     let animationFrameId: number;
+
+    const params = {
+      id: 0,
+      position: [0, 0],
+      velocity: [1, 1],
+      charge: 5,
+      r: 2,
+    };
+
+    const particle = new Particle(...params);
 
     resize(canvas!);
     canvas!.style.border = "1px solid #000";

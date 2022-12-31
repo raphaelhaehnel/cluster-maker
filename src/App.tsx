@@ -1,12 +1,25 @@
 import React, { useState, useEffect } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import Canvas from "./canvas";
+import Particle from "./physics/particle";
 
 function App() {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      setMousePos({ x: event.clientX, y: event.clientY });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
   function resizeCanvasToDisplaySize(canvas: HTMLCanvasElement) {
-    // const { width, height } = canvas.getBoundingClientRect();
-    const width = 80;
+    const width = 200;
     const height = 200;
 
     if (canvas.width !== width || canvas.height !== height) {
@@ -43,6 +56,16 @@ function App() {
       2 * Math.PI
     );
 
+    ctx.arc(
+      mousePos.x, //x    10 + 25
+      mousePos.y, //y
+      radius, //radius
+      0,
+      2 * Math.PI
+    );
+
+    ctx.fillText(mousePos.x.toString(), 20, 20);
+
     ctx.fill();
   };
 
@@ -66,6 +89,12 @@ function App() {
         Click me
       </button>
       {myCanvas}
+      <div>
+        The mouse is at position{" "}
+        <b>
+          ({mousePos.x}, {mousePos.y})
+        </b>
+      </div>
     </div>
   );
 }
