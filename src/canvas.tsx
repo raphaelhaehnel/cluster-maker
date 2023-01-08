@@ -12,15 +12,10 @@ const Canvas = (props: CanvasProps) => {
     let frameCount = 0;
     let animationFrameId: number;
 
-    const params = {
-      id: 0,
-      position: [0, 0],
-      velocity: [1, 1],
-      charge: 5,
-      r: 2,
-    };
+    const particle1 = new Particle(0, [100, 100], [0, 0], 5, 2, 0.5);
+    const particle2 = new Particle(1, [80, 100], [0, 6], 5, 2, 0.5);
 
-    const particle = new Particle(...params);
+    let listParticles = [particle1, particle2];
 
     resize(canvas!);
     canvas!.style.border = "1px solid #000";
@@ -35,7 +30,8 @@ const Canvas = (props: CanvasProps) => {
         // console.log(time);
       }
       frameCount++;
-      draw(context, frameCount);
+      draw(context, frameCount, listParticles);
+      listParticles[1].move(0.2, listParticles[0]);
       animationFrameId = window.requestAnimationFrame(render);
     };
     render();

@@ -1,2 +1,2 @@
-export declare const FAR_FIELD = 60;
-export declare const K = 50;
+export const FAR_FIELD = 60;
+export const K = 10;
