@@ -16,27 +16,31 @@ export function draw(
     x = width - radius - (frameCount % (width - 2 * radius));
   }
   ctx.clearRect(0, 0, width, ctx.canvas.height);
-  ctx.fillStyle = "#000000";
+  ctx.fillStyle = "black";
   ctx.beginPath();
 
-  ctx.arc(
-    x, //x    10 + 25
-    50 + 10 * Math.sin(0.2 * frameCount), //y
-    radius, //radius
-    0,
-    2 * Math.PI
-  );
+  // ctx.arc(
+  //   x, //x    10 + 25
+  //   50 + 10 * Math.sin(0.2 * frameCount), //y
+  //   radius, //radius
+  //   0,
+  //   2 * Math.PI
+  // );
+  // ctx.fill();
+  // ctx.stroke();
 
   for (const particle of listParticles) {
-    ctx.moveTo(particle.getPosition()[0], particle.getPosition()[1]);
+    ctx.beginPath();
     ctx.arc(
-      particle.getPosition()[0], //x    10 + 25
-      particle.getPosition()[1], //y
-      5, //radius
+      particle.p.x, //x    10 + 25
+      particle.p.y, //y
+      particle.r, //radius
       0,
       2 * Math.PI
     );
+
+    ctx.fillStyle = particle.color;
+    ctx.fill();
+    ctx.stroke();
   }
-  ctx.stroke();
-  ctx.fill();
 }
